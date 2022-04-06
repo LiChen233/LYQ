@@ -1,0 +1,15 @@
+package com.beneway.common.system.entity.sys_user.fo;
+
+import com.beneway.common.system.entity.sys_user.SysUser;
+import lombok.Data;
+
+import java.util.List;
+
+@Data
+public class SysUserFo extends SysUser {
+
+    /**
+     * 角色
+     */
+    private List<Integer> roleList;
+}

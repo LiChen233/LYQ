@@ -1,0 +1,4 @@
+# 项目排除路径
+/zs-contract-project/zs-contract-admin/target/
+/zs-contract-project/zs-contract-common/target/
+/zs-contract-project/zs-contract-web/target/
