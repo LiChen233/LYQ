@@ -1,8 +1,8 @@
 
 mybatis-plus:
-  mapper-locations: classpath:com/beneway/common/**/mapper/*.xml
-  type-aliases-package: com.beneway.**.entity
-  type-enums-package: com.beneway.**.enums
+  mapper-locations: classpath*:com/lyq/**/mapper/*.xml
+  type-aliases-package: com.lyq.**.entity
+  type-enums-package: com.lyq.**.enums
   global-config:
     #数据库相关配置
     db-config:
@@ -13,7 +13,7 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
   configuration:
     map-underscore-to-camel-case: true #开启驼峰命名
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印SQL语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #打印SQL语句
 
 sa-token:
   token-name: access_token

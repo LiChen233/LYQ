@@ -2,11 +2,11 @@ package com.lyq.system.service.sys_user;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lyq.common.result.Result;
+import com.lyq.system.entity.sys_user.SysUser;
 import com.lyq.system.entity.sys_user.fo.SysUserFo;
 import com.lyq.system.entity.sys_user.fo.SysUserQueryFo;
 import com.lyq.system.entity.sys_user.vo.LoginUserInfo;
 import com.lyq.common.mybatisplus.MyIService;
-import com.lyq.system.entity.sys_user.SysUser;
 import com.lyq.system.entity.sys_user.vo.SysUserComVo;
 import com.lyq.system.entity.sys_user.vo.SysUserVo;
 

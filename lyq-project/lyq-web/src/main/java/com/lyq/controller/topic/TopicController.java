@@ -1,8 +1,8 @@
 package com.lyq.controller.topic;
 
 import com.lyq.common.result.Result;
-import com.lyq.entity.topic.fo.TopicFo;
-import com.lyq.service.topic.TopicService;
+import com.lyq.app.entity.topic.fo.TopicFo;
+import com.lyq.app.service.topic.TopicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

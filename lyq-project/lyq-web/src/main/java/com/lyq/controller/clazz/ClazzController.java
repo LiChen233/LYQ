@@ -1,10 +1,10 @@
 package com.lyq.controller.clazz;
 
 import com.lyq.common.result.Result;
-import com.lyq.entity.clazz.Clazz;
-import com.lyq.entity.clazz.fo.ClazzFo;
-import com.lyq.entity.clazz.fo.ClazzQueryFo;
-import com.lyq.service.clazz.ClazzService;
+import com.lyq.app.entity.clazz.Clazz;
+import com.lyq.app.entity.clazz.fo.ClazzFo;
+import com.lyq.app.entity.clazz.fo.ClazzQueryFo;
+import com.lyq.app.service.clazz.ClazzService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

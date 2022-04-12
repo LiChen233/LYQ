@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lyq.common.utils.sys_files.FilePathEnum;
 import com.lyq.common.utils.sys_files.SysFilesUtils;
 import com.lyq.system.dao.SysFilesDao;
-import com.lyq.system.entity.sys_files.SysFiles;
 import com.lyq.system.service.sys_files.SysFilesService;
+import com.lyq.system.entity.sys_files.SysFiles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +23,6 @@ public class SysFilesServiceImpl extends ServiceImpl<SysFilesDao, SysFiles> impl
 
     @Autowired
     private SysFilesDao sysFilesDao;
-
-    @Override
-    public SysFiles find(String id) {
-        return sysFilesDao.find(id);
-    }
 
     @Override
     public void insert(SysFiles sysFiles) {

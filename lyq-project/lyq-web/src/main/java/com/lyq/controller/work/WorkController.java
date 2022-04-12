@@ -1,9 +1,9 @@
 package com.lyq.controller.work;
 
 import com.lyq.common.result.Result;
-import com.lyq.entity.work.fo.WorkFo;
-import com.lyq.entity.work.fo.WorkQueryFo;
-import com.lyq.service.work.WorkService;
+import com.lyq.app.entity.work.fo.WorkFo;
+import com.lyq.app.entity.work.fo.WorkQueryFo;
+import com.lyq.app.service.work.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

@@ -1,6 +1,6 @@
 server:
   servlet:
-    context-path: /contract
+    context-path: /lyq
 
 spring:
   profiles:

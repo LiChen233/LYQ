@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface SysFilesService extends MyIService<SysFiles> {
 
-    SysFiles find(String id);
-
     void insert(SysFiles sysFiles);
 
     /**

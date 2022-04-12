@@ -2,9 +2,9 @@ package com.lyq.system.service.sys_user.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.lyq.system.dao.SysUserRoleDao;
 import com.lyq.system.entity.sys_user.SysUserRole;
 import com.lyq.system.service.sys_user.SysUserRoleService;
+import com.lyq.system.dao.SysUserRoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

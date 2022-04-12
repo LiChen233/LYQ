@@ -1,10 +1,10 @@
 package com.lyq.controller.notice;
 
 import com.lyq.common.result.Result;
-import com.lyq.entity.notice.Notice;
-import com.lyq.entity.notice.fo.NoticeFo;
-import com.lyq.entity.notice.fo.NoticeQueryFo;
-import com.lyq.service.notice.NoticeService;
+import com.lyq.app.entity.notice.Notice;
+import com.lyq.app.entity.notice.fo.NoticeFo;
+import com.lyq.app.entity.notice.fo.NoticeQueryFo;
+import com.lyq.app.service.notice.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

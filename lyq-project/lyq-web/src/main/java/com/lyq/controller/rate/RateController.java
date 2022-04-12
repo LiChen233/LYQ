@@ -1,8 +1,8 @@
 package com.lyq.controller.rate;
 
 import com.lyq.common.result.Result;
-import com.lyq.entity.rate.fo.RateFo;
-import com.lyq.service.rate.RateService;
+import com.lyq.app.entity.rate.fo.RateFo;
+import com.lyq.app.service.rate.RateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

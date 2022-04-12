@@ -1,10 +1,10 @@
 package com.lyq.controller.subject;
 
 import com.lyq.common.result.Result;
-import com.lyq.entity.subject.Subject;
-import com.lyq.entity.subject.fo.SubjectFo;
-import com.lyq.entity.subject.fo.SubjectQueryFo;
-import com.lyq.service.subject.SubjectService;
+import com.lyq.app.entity.subject.Subject;
+import com.lyq.app.entity.subject.fo.SubjectFo;
+import com.lyq.app.entity.subject.fo.SubjectQueryFo;
+import com.lyq.app.service.subject.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

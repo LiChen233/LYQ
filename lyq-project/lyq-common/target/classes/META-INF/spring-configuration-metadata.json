@@ -2,8 +2,8 @@
   "groups": [
     {
       "name": "customize.file",
-      "type": "com.beneway.common.common.utils.sys_files.SysFilesUtils",
-      "sourceType": "com.beneway.common.common.utils.sys_files.SysFilesUtils"
+      "type": "com.lyq.common.utils.sys_files.SysFilesUtils",
+      "sourceType": "com.lyq.common.utils.sys_files.SysFilesUtils"
     }
   ],
   "properties": [],

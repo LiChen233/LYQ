@@ -1,8 +1,8 @@
 package com.lyq.controller.topiccheck;
 
 import com.lyq.common.result.Result;
-import com.lyq.entity.topic_check.fo.TopicCheckFo;
-import com.lyq.service.topiccheck.TopicCheckService;
+import com.lyq.app.entity.topic_check.fo.TopicCheckFo;
+import com.lyq.app.service.topiccheck.TopicCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
