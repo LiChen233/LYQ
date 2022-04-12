@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.beneway.common.system.dao.SysUserDao">
+    <resultMap id="res" type="com.beneway.common.system.entity.sys_user.SysUser" />
+
+    <select id="queryPage" resultType="com.beneway.common.system.entity.sys_user.vo.SysUserVo">
+        select
+            su.*,s.name as subjectName
+        from sys_user as su
+        left join subject s on su.subject_id = s.id
+        <where>
+            <include refid="del"></include>
+            <if test="params.username != null and params.username != ''">
+                and su.username like concat('%', #{params.username}, '%')
+            </if>
+            <if test="params.account != null and params.account != ''">
+                and su.account like concat('%', #{params.account}, '%')
+            </if>
+            <if test="params.phone != null and params.phone != ''">
+                and su.phone like concat('%', #{params.phone}, '%')
+            </if>
+            <if test="params.clazzId != null and params.clazzId != ''">
+                and su.clazz_id like concat('%', #{params.clazzId}, '%')
+            </if>
+            <if test="params.subjectId != null and params.subjectId != ''">
+                and su.subject_id like concat('%', #{params.subjectId}, '%')
+            </if>
+        </where>
+        order by su.create_time
+    </select>
+
+    <sql id="del">
+       and su.deleted = 0
+    </sql>
+
+</mapper>

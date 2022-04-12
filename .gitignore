@@ -2,3 +2,8 @@
 /zs-contract-project/zs-contract-admin/target/
 /zs-contract-project/zs-contract-common/target/
 /zs-contract-project/zs-contract-web/target/
+/.idea/
+/files/
+*.iml
+/zs-contract-project/zs-contract-project.iml
+/logs/

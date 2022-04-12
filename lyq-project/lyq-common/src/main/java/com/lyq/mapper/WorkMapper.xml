@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lyq.dao.work.WorkDao">
+    <resultMap id="res" type="com.lyq.entity.work.vo.WorkVo" />
+
+    <select id="queryPage" resultMap="res" >
+        SELECT
+            w.*,
+            s.`name` as subjectName,
+            c.`name` as clazzName,
+            u.username as teacherName
+        FROM
+            `work` w
+        LEFT JOIN `subject` s ON s.id = w.subject_id
+        LEFT JOIN clazz c ON c.id = w.clazz_id
+        LEFT JOIN sys_user u ON u.id = w.teacher_id
+        <where>
+            <if test="param.clazzId!=null and param.clazzId!=''">
+                AND w.clazz_id = #{param.clazzId}
+            </if>
+            <if test="param.time!=null and param.time!=''">
+                AND w.time = #{param.time}
+            </if>
+        </where>
+        ORDER BY w.create_time DESC
+    </select>
+
+</mapper>

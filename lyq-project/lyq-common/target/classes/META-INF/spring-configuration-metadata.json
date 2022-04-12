@@ -1,0 +1,11 @@
+{
+  "groups": [
+    {
+      "name": "customize.file",
+      "type": "com.beneway.common.common.utils.sys_files.SysFilesUtils",
+      "sourceType": "com.beneway.common.common.utils.sys_files.SysFilesUtils"
+    }
+  ],
+  "properties": [],
+  "hints": []
+}
