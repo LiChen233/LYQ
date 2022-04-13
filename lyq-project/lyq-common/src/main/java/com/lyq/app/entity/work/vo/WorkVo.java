@@ -34,4 +34,12 @@ public class WorkVo extends Work {
      * 评分
      */
     private Rate rate;
+    /**
+     * 姓名
+     */
+    private String username;
+    /**
+     * 手机号
+     */
+    private String phone;
 }

@@ -5,6 +5,12 @@
       <a-form-item>
         <a-button type="primary" @click="handleAdd">发布作业</a-button>
       </a-form-item>
+      <my-student-work
+        :id="model.id"
+        :clazz-id="model.clazzId"
+        :visible="model.visible"
+        @close="close"
+      ></my-student-work>
       <my-page-table ref="myPageTable" :req-url="queryPage" :where="where">
         <template slot-scope="{ list }">
           <a-table :columns="columns"
@@ -36,10 +42,12 @@ import {baseUrl} from "@/api/system/user";
 import reqApi from "@/utils/reqApi";
 import MyPageTable from "@/components/My/MyPageTable";
 import MySearch from "@/components/My/MySearch";
+import MyStudentWork from "@/views/work/MyStudentWork";
 
 export default {
   name: "WorkManager",
   components: {
+    MyStudentWork,
     MySearch,
     MyPageTable,
   },
@@ -98,7 +106,12 @@ export default {
           scopedSlots: {customRender: "action"}
         },
       ],
-      student: {}
+      student: {},
+      model: {
+        clazzId: '',
+        workId: '',
+        visible: false
+      }
     };
   },
   mounted() {
@@ -149,10 +162,10 @@ export default {
     },
     look(record) {
       record.visible = true
-      this.student = record
+      this.model = record
     },
     close() {
-      this.student = this.student.visible = false
+      this.model = this.model.visible = false
     },
     getClazzList() {
       reqApi({
@@ -165,7 +178,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .btn {
   display: flex;
 }

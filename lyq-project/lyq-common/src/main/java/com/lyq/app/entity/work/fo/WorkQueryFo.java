@@ -13,13 +13,25 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Data
 public class WorkQueryFo extends PageQuery {
     /**
+     * 姓名
+     */
+    private String username;
+    /**
      * 班级
      */
     private String clazzId;
+    /**
+     * 作业id
+     */
+    private String workId;
     /**
      * 时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private String time;
+    /**
+     * 自己的id
+     */
+    private String userId;
 }

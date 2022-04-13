@@ -16,6 +16,9 @@
         LEFT JOIN clazz c ON c.id = w.clazz_id
         LEFT JOIN sys_user u ON u.id = w.teacher_id
         <where>
+            <if test="param.userId!=null and param.userId!=''">
+                AND w.teacher_id = #{param.userId}
+            </if>
             <if test="param.clazzId!=null and param.clazzId!=''">
                 AND w.clazz_id = #{param.clazzId}
             </if>
@@ -26,4 +29,18 @@
         ORDER BY w.create_time DESC
     </select>
 
+    <select id="getWorkDone" resultMap="res">
+        SELECT
+            u.id,
+            u.username,
+            u.phone
+        FROM
+            sys_user u
+        <where>
+            u.clazz_id = #{param.clazzId}
+            <if test="param.username!=null and param.username!=''">
+                AND u.username = #{param.username}
+            </if>
+        </where>
+    </select>
 </mapper>

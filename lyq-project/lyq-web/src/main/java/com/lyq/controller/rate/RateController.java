@@ -24,4 +24,9 @@ public class RateController {
         return rateService.insert(rateFo);
     }
 
+    @PutMapping("/")
+    public Result put(@RequestBody RateFo rateFo){
+        return rateService.put(rateFo);
+    }
+
 }

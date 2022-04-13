@@ -2,6 +2,7 @@
   <div style="margin-bottom: 20px;">
     <h1 v-if="type==='R'">添加单选题</h1>
     <h1 v-if="type==='C'">添加多选题</h1>
+    <h1 v-if="type==='E'">添加附加题</h1>
     <a-form-model
       ref="ruleForm"
       :model="form"
@@ -123,10 +124,13 @@ export default {
           let data = this.form
           data.workId = this.workId
           data.type = this.type
-          if (data.key.length > 1) {
-            data.key.sort()
+
+          if (data.key!=null){
+            if (data.key.length > 1) {
+              data.key.sort()
+            }
+            data.rightKey = data.key.toString()
           }
-          data.rightKey = data.key.toString()
           reqApi({
             url: this.crud,
             data: data,

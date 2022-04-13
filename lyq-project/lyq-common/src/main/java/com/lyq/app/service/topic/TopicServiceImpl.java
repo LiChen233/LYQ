@@ -12,6 +12,7 @@ import com.lyq.app.dao.topic.TopicDao;
 import com.lyq.app.entity.topic.Topic;
 import com.lyq.app.entity.topic.fo.TopicQueryFo;
 import com.lyq.app.entity.topic_check.TopicCheck;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -49,13 +50,15 @@ public class TopicServiceImpl extends ServiceImpl<TopicDao, Topic> implements To
     }
 
     @Override
-    public Result list(String workId) {
+    public Result list(String workId, String userId) {
         LambdaQueryWrapper<Topic> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Topic::getWorkId, workId);
         List<Topic> topicList = list(wrapper);
         List<TopicVo> topicVos = ClassUtil.toClassList(topicList, TopicVo.class);
-        String userId = LoginUserUtils.getLoginUserId();
-        //同时查询我这个人的答案
+        if (StringUtils.isBlank(userId)){
+            userId = LoginUserUtils.getLoginUserId();
+        }
+        //同时查询这个人的答案
         if (null != topicVos && topicVos.size() > 0) {
             for (TopicVo topicVo : topicVos) {
                 LambdaQueryWrapper<TopicCheck> queryWrapper = new LambdaQueryWrapper<>();

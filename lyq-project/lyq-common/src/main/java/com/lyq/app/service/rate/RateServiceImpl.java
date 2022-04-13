@@ -1,6 +1,7 @@
 package com.lyq.app.service.rate;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.lyq.common.result.Result;
 import com.lyq.common.utils.LoginUserUtils;
@@ -63,6 +64,8 @@ public class RateServiceImpl extends ServiceImpl<RateDao, Rate> implements RateS
                 if (rightKey.equals(myCheck)) {
                     sum++;
                 }
+            }else{
+                size--;
             }
         }
         double auto = sum / size * 100;
@@ -70,5 +73,15 @@ public class RateServiceImpl extends ServiceImpl<RateDao, Rate> implements RateS
                 .setUserId(userId);
         save(rateFo);
         return Result.ok(rateFo);
+    }
+
+    @Override
+    public Result put(RateFo rateFo) {
+        LambdaUpdateWrapper<Rate> wrapper = new LambdaUpdateWrapper<>();
+        wrapper.set(Rate::getRate,rateFo.getRate())
+                .eq(Rate::getWorkId,rateFo.getWorkId())
+                .eq(Rate::getUserId,rateFo.getUserId());
+        update(wrapper);
+        return Result.ok();
     }
 }

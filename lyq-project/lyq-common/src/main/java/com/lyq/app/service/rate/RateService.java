@@ -12,4 +12,6 @@ import com.lyq.app.entity.rate.fo.RateFo;
  */
 public interface RateService extends IService<Rate> {
     Result insert(RateFo rateFo);
+
+    Result put(RateFo rateFo);
 }

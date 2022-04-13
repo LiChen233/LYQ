@@ -44,6 +44,7 @@ import {
   Statistic,
   Descriptions,
   Space,
+  Rate,
   message,
   notification,
   FormModel, Empty, Affix, Collapse
@@ -104,6 +105,7 @@ Vue.use(FormModel);
 Vue.use(Empty);
 Vue.use(Affix);
 Vue.use(Collapse);
+Vue.use(Rate);
 
 Vue.prototype.$confirm = Modal.confirm
 Vue.prototype.$message = message

@@ -1,7 +1,8 @@
 <template>
   <div
     :style="bordered?'padding-bottom: 20px;margin-bottom: 20px;border-bottom: 1px solid #eee':'margin-bottom: 20px;'">
-    <h1 :style="info.rightKey===info.myCheck?'color: #f5222d;':''">{{ index }}.{{ info.title }}</h1>
+    <h1 :style="showRemark && info.rightKey && info.myCheck  && info.rightKey===info.myCheck?'color: #f5222d;':''">
+      {{ index }}. {{ info.title }}</h1>
     <a-radio-group
       v-model="info.myCheck"
       @change="submit"
@@ -26,6 +27,16 @@
       <a-checkbox value="C">{{ info.optionC }}</a-checkbox>
       <a-checkbox value="D">{{ info.optionD }}</a-checkbox>
     </a-checkbox-group>
+    <div>
+      <a-input
+        v-model="info.myCheck[0]"
+        type="textarea"
+        style="min-height: 80px;width: 50%;"
+        v-if="info.type==='E'"
+        placeholder="请输入答案"
+        @change="submit"
+      />
+    </div>
     <a-form-model-item style="margin-bottom: 0px" label="题目解析" v-if="showRemark">
       {{ info.remark }}
     </a-form-model-item>
@@ -65,13 +76,11 @@ export default {
       timer: null
     }
   },
-  created() {
-    console.log(this.showRemark)
-  },
   methods: {
     submit() {
       let myCheck = this.info.myCheck
-      if (myCheck.length > 1) {
+      let type = this.info.type
+      if (myCheck.length > 1 && type !== 'E') {
         myCheck.sort();
       }
       this.debounce(() => {

@@ -24,5 +24,7 @@ public interface WorkService extends IService<Work> {
     Result del(String id);
 
     Result myWork(WorkQueryFo workQueryFo);
+
+    Result getWorkDone(WorkQueryFo workQueryFo);
 }
 

@@ -29,10 +29,11 @@ public class TopicController {
 
     /**
      * 根据作业id查询下面的所有题目
+     *
      * @return
      */
     @GetMapping("/list")
-    public Result list(@RequestParam("workId") String workId){
-        return topicService.list(workId);
+    public Result list(@RequestParam("workId") String workId, @RequestParam(value = "userId", required = false) String userId) {
+        return topicService.list(workId, userId);
     }
 }

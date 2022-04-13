@@ -51,6 +51,9 @@
         <a-button type="primary" @click="addCheck" v-if="type!=='C'">
           {{ type !== 'R' ? '添加多选题' : '切换多选题' }}
         </a-button>
+        <a-button type="primary" @click="addEx" v-if="type!=='E'">
+          添加附加题
+        </a-button>
       </div>
     </a-card>
   </div>
@@ -89,7 +92,6 @@ export default {
   },
   mounted() {
     let q = this.$route.query
-    console.log(q.workId)
     if (q.workId) {
       this.work.id = q.workId
       this.work.time = q.time
@@ -174,6 +176,10 @@ export default {
       this.type = ''
       this.active = false
       this.getTopicList()
+    },
+    addEx() {
+      this.type = 'E'
+      this.active = true
     }
   }
 }
@@ -181,6 +187,10 @@ export default {
 
 <style lang="less" scoped>
 .btn button:nth-child(1) {
+  margin-right: 10px;
+}
+
+.btn button:nth-child(2) {
   margin-right: 10px;
 }
 

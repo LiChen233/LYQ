@@ -52,4 +52,12 @@ public class WorkController {
     public Result del(@RequestParam("id") String id) {
         return workService.del(id);
     }
+
+    /**
+     * 获取当前班级下的所有用户的本次作业完成情况
+     */
+    @PostMapping("/getWorkDone")
+    public Result getWorkDone(@RequestBody WorkQueryFo workQueryFo){
+        return workService.getWorkDone(workQueryFo);
+    }
 }

@@ -9,7 +9,7 @@
                    :pagination="false"
                    :rowKey="record=>record.id">
             <template slot="done" slot-scope="text, record">
-              <div style="display: flex;flex-direction: column;align-items: center;">
+              <div class="tags">
                 <a-tag v-if="record.rate==null">
                   未完成
                 </a-tag>
@@ -150,5 +150,15 @@ export default {
 
 .btn /deep/ .ant-btn:nth-child(1) {
   margin: 0;
+}
+
+.tags {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tags /deep/ .ant-tag {
+  margin: 2px 0;
 }
 </style>

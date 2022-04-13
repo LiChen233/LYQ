@@ -29,8 +29,6 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 
- *
  * @author LiChen
  * @email dcam00r0@qq.com
  * @date 2022-03-28 21:13:27
@@ -53,6 +51,7 @@ public class WorkServiceImpl extends ServiceImpl<WorkDao, Work> implements WorkS
     @Override
     public Result queryPage(WorkQueryFo workQueryFo) {
         Page page = PageUtils.getPage(workQueryFo);
+        workQueryFo.setUserId(LoginUserUtils.getLoginUserId());
         IPage<WorkVo> iPage = workDao.queryPage(page, workQueryFo);
         return Result.ok(iPage);
     }
@@ -63,7 +62,7 @@ public class WorkServiceImpl extends ServiceImpl<WorkDao, Work> implements WorkS
         LoginUserInfo info = LoginUserUtils.getLoginUserInfo();
         String userId = info.getId();
         String clazzId = info.getClazzId();
-        if (StringUtils.isNotBlank(clazzId)){
+        if (StringUtils.isNotBlank(clazzId)) {
             String[] split = clazzId.split(",");
             workQueryFo.setClazzId(split[0]);
         }
@@ -71,8 +70,26 @@ public class WorkServiceImpl extends ServiceImpl<WorkDao, Work> implements WorkS
         for (WorkVo workVo : iPage.getRecords()) {
             //获取我是否完成
             LambdaQueryWrapper<Rate> wrapper = new LambdaQueryWrapper<>();
-            wrapper.eq(Rate::getWorkId,workVo.getId())
-                    .eq(Rate::getUserId,userId);
+            wrapper.eq(Rate::getWorkId, workVo.getId())
+                    .eq(Rate::getUserId, userId);
+            Rate rate = rateService.getOne(wrapper);
+            workVo.setRate(rate);
+        }
+        return Result.ok(iPage);
+    }
+
+    /**
+     * 获取当前班级下的所有用户的本次作业完成情况
+     */
+    @Override
+    public Result getWorkDone(WorkQueryFo workQueryFo) {
+        Page page = PageUtils.getPage(workQueryFo);
+        IPage<WorkVo> iPage = workDao.getWorkDone(page, workQueryFo);
+        for (WorkVo workVo : iPage.getRecords()) {
+            //获取我是否完成
+            LambdaQueryWrapper<Rate> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Rate::getWorkId, workQueryFo.getWorkId())
+                    .eq(Rate::getUserId, workVo.getId());
             Rate rate = rateService.getOne(wrapper);
             workVo.setRate(rate);
         }
@@ -116,7 +133,7 @@ public class WorkServiceImpl extends ServiceImpl<WorkDao, Work> implements WorkS
     public Result del(String id) {
         removeById(id);
         LambdaQueryWrapper<Topic> wrapper = new LambdaQueryWrapper<>();
-        wrapper.eq(Topic::getWorkId,id);
+        wrapper.eq(Topic::getWorkId, id);
         topicService.remove(wrapper);
         return Result.ok();
     }

@@ -10,6 +10,11 @@
     <a-button type="primary" @click="submit" :loading="loadKey" v-if="showRemark==='1'">
       提交作业
     </a-button>
+    <h1>评分</h1>
+    <span>
+      <a-rate v-model="value" allow-half :tooltips="desc" @change="rate"/>
+      <span class="ant-rate-text">{{ desc[value - 1] }}</span>
+    </span>
   </a-card>
 </template>
 
@@ -26,15 +31,22 @@ export default {
   props: {},
   data() {
     return {
+      value: 0,
+      desc: ['很糟糕', '不太行', '一般', '很不错', '棒极了'],
       data: {},
       topicList: [],
       workId: '',
+      userId: '',
+      look: '',
       crud: baseUrl.rate.crud,
       showRemark: this.$route.query.showRemark
     }
   },
   created() {
     this.workId = this.$route.query.workId
+    this.userId = this.$route.query.userId
+    this.look = this.$route.query.look
+    this.value = this.$route.query.rate / 20
     this.showRemark = this.$route.query.showRemark
     this.getTopicList()
   },
@@ -52,7 +64,8 @@ export default {
       reqApi({
         url: baseUrl.topic.list,
         params: {
-          workId: this.workId
+          workId: this.workId,
+          userId: this.userId
         }
       }).then(res => {
         this.topicList = res.data
@@ -76,6 +89,20 @@ export default {
           })
         }
       });
+    },
+    rate(v) {
+      v *= 20
+      reqApi({
+        url: baseUrl.rate.crud,
+        data: {
+          workId: this.workId,
+          userId: this.userId,
+          rate: v
+        },
+        method: 'put'
+      }).then(res => {
+        this.$message.success('评分成功')
+      })
     }
   }
 }

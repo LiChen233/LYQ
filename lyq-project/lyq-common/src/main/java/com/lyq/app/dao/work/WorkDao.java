@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * 
  *
@@ -22,4 +24,6 @@ import org.apache.ibatis.annotations.Param;
 public interface WorkDao extends BaseMapper<Work> {
 
     IPage<WorkVo> queryPage(Page page, @Param("param") WorkQueryFo workQueryFo);
+
+    IPage<WorkVo> getWorkDone(Page page, @Param("param") WorkQueryFo workQueryFo);
 }

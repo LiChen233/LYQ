@@ -31,7 +31,8 @@ export const baseUrl = {
     queryPage: 'work/queryPage',
     myWork: 'work/myWork',
     crud: 'work/',
-    list: 'work/list'
+    list: 'work/list',
+    getWorkDone: 'work/getWorkDone'
   },
   topic: {
     queryPage: 'topic/queryPage',

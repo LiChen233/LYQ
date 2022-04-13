@@ -19,6 +19,6 @@ public interface TopicService extends IService<Topic> {
 
     Result insert(TopicFo topicFo);
 
-    Result list(String workId);
+    Result list(String workId, String userId);
 }
 
