@@ -10,11 +10,13 @@
     <a-button type="primary" @click="submit" :loading="loadKey" v-if="showRemark==='1'">
       提交作业
     </a-button>
-    <h1>评分</h1>
-    <span>
-      <a-rate v-model="value" allow-half :tooltips="desc" @change="rate"/>
-      <span class="ant-rate-text">{{ desc[value - 1] }}</span>
-    </span>
+    <div v-if="$route.query.rate">
+      <h1>评分</h1>
+      <span>
+        <a-rate v-model="value" allow-half :tooltips="desc" @change="rate"/>
+        <span class="ant-rate-text">{{ desc[value - 1] }}</span>
+      </span>
+    </div>
   </a-card>
 </template>
 

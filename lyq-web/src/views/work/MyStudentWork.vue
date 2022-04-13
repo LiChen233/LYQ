@@ -126,7 +126,7 @@ export default {
           workId: this.id,
           showRemark: '2',
           userId: record.id,
-          rate: record.rate.rate
+          rate: record.rate.rate ? record.rate.rate : 0
         }
       })
     }
