@@ -31,6 +31,13 @@
       </a-form-model>
     </a-card>
     <a-card class="con" v-if="work.id!=null" :bordered="false">
+      <h2>资料上传</h2>
+      <h1>可以上传本次作业将使用的资料，或明日课程所需的资料</h1>
+      <my-file-upload :multiple="true" :files-ids.sync="files" :default-file-ids="work.files">
+
+      </my-file-upload>
+    </a-card>
+    <a-card class="con" v-if="work.id!=null" :bordered="false">
       <topic v-for="(item,index) in topicList"
              :key="item.id"
              :info="item"
@@ -64,10 +71,12 @@ import {baseUrl} from '@/api/system/user'
 import reqApi from "@/utils/reqApi";
 import Topic from "@/views/topic/Topic";
 import TopicAdd from "@/views/topic/TopicAdd";
+import MyFileUpload from "@/components/My/file/MyFileUpload";
 
 export default {
   name: 'WorkAddEdit',
   components: {
+    MyFileUpload,
     TopicAdd,
     Topic,
   },
@@ -87,7 +96,25 @@ export default {
       topicList: [],
       subject: {},
       active: false,
-      workCrud: baseUrl.work.crud
+      workCrud: baseUrl.work.crud,
+      upload: baseUrl.work.upload,
+      files: ''
+    }
+  },
+  watch: {
+    files: function (ids) {
+      if (this.work.files !== ids) {
+        reqApi({
+          url: this.upload,
+          data: {
+            id: this.work.id,
+            files: ids
+          },
+          method: 'put'
+        }).then(res => {
+          this.$message.success('资料已保存')
+        })
+      }
     }
   },
   mounted() {
@@ -96,7 +123,7 @@ export default {
       this.work.id = q.workId
       this.work.time = q.time
       this.work.clazzId = q.clazzId
-      this.getTopicList()
+      this.getWork()
     }
     this.getSubject()
     this.getClazzList()
@@ -111,9 +138,6 @@ export default {
     }
   },
   methods: {
-    submit() {
-
-    },
     getSubject() {
       this.$store.dispatch('GetInfo').then(data => {
         if (data.subjectId == null) {

@@ -26,5 +26,7 @@ public interface WorkService extends IService<Work> {
     Result myWork(WorkQueryFo workQueryFo);
 
     Result getWorkDone(WorkQueryFo workQueryFo);
+
+    Result upload(WorkFo workFo);
 }
 

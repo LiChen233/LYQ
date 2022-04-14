@@ -97,6 +97,16 @@ public class WorkServiceImpl extends ServiceImpl<WorkDao, Work> implements WorkS
     }
 
     @Override
+    public Result upload(WorkFo workFo) {
+        Work work = Work.builder()
+                .id(workFo.getId())
+                .files(workFo.getFiles())
+                .build();
+        updateById(work);
+        return Result.ok();
+    }
+
+    @Override
     public Result insert(WorkFo workFo) {
         save(workFo);
         return Result.ok();

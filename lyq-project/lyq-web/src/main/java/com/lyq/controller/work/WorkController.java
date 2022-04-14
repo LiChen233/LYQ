@@ -30,6 +30,14 @@ public class WorkController {
     }
 
     /**
+     * 查询
+     */
+    @GetMapping("/")
+    public Result find(@RequestParam("id") String id) {
+        return Result.ok(workService.getById(id));
+    }
+
+    /**
      * 分页查询
      */
     @PostMapping("/queryPage")
@@ -51,6 +59,14 @@ public class WorkController {
     @DeleteMapping("/")
     public Result del(@RequestParam("id") String id) {
         return workService.del(id);
+    }
+
+    /**
+     * 更新已上传的资料id
+     */
+    @PutMapping("/upload")
+    public Result upload(@RequestBody WorkFo workFo){
+        return workService.upload(workFo);
     }
 
     /**
