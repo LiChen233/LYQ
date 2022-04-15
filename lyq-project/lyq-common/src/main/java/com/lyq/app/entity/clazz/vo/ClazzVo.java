@@ -18,4 +18,8 @@ public class ClazzVo extends Clazz {
      * 创建人名字
      */
     private String updateMan;
+    /**
+     * 课表文件id
+     */
+    private String files;
 }

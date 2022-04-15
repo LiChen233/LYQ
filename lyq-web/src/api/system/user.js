@@ -18,6 +18,7 @@ export const api = {
 export const baseUrl = {
   clazz: {
     queryPage: 'clazz/queryPage',
+    queryPageAndTimetable: 'clazz/queryPageAndTimetable',
     crud: 'clazz/',
     list: 'clazz/list',
     myList: 'clazz/myList'
@@ -60,6 +61,12 @@ export const baseUrl = {
   },
   rate: {
     crud: 'rate/'
+  },
+  timetable: {
+    crud: 'timetable/'
+  },
+  means: {
+    crud: 'means/'
   }
 }
 

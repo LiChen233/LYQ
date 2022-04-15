@@ -26,5 +26,7 @@ public interface ClazzService extends IService<Clazz> {
     Result del(String id);
 
     Result myList();
+
+    Result queryPageAndTimetable(ClazzQueryFo clazzQueryFo);
 }
 

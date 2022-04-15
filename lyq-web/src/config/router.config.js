@@ -50,6 +50,18 @@ const my = [
     component: () => import('@/views/work/WorkAddEdit'),
     meta: {title: '作业发布'}
   },
+  {
+    path: '/Timetable',
+    name: 'Timetable',
+    component: () => import('@/views/timetable/Timetable'),
+    meta: {title: '我的课表'}
+  },
+  {
+    path: '/TimetableManager',
+    name: 'TimetableManager',
+    component: () => import('@/views/timetable/TimetableManager'),
+    meta: {title: '课表管理'}
+  },
 ]
 
 const menus = [
@@ -238,16 +250,6 @@ export const constantRouterMap = [
         path: 'login',
         name: 'login',
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login')
-      },
-      {
-        path: 'register',
-        name: 'register',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register')
-      },
-      {
-        path: 'register-result',
-        name: 'registerResult',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/user/RegisterResult')
       },
       {
         path: 'recover',

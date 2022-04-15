@@ -1,8 +1,11 @@
 package com.lyq.app.service.clazz;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.lyq.app.entity.clazz.fo.ClazzFo;
 import com.lyq.app.entity.clazz.vo.ClazzVo;
+import com.lyq.app.entity.timetable.Timetable;
+import com.lyq.app.service.timetable.TimetableService;
 import com.lyq.common.result.Result;
 import com.lyq.common.utils.LoginUserUtils;
 import com.lyq.common.utils.page.PageUtils;
@@ -32,6 +35,9 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzDao, Clazz> implements Cl
 
     @Autowired
     private ClazzDao clazzDao;
+
+    @Autowired
+    private TimetableService timetableService;
 
     @Override
     public Result list(ClazzQueryFo clazzQueryFo) {
@@ -83,5 +89,20 @@ public class ClazzServiceImpl extends ServiceImpl<ClazzDao, Clazz> implements Cl
             }
         }
         return Result.ok(list);
+    }
+
+    @Override
+    public Result queryPageAndTimetable(ClazzQueryFo clazzQueryFo) {
+        Page page = PageUtils.getPage(clazzQueryFo);
+        IPage<ClazzVo> iPage = clazzDao.queryPage(page, clazzQueryFo);
+        for (ClazzVo record : iPage.getRecords()) {
+            LambdaQueryWrapper<Timetable> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Timetable::getClazzId, record.getId());
+            Timetable one = timetableService.getOne(wrapper);
+            if (null != one){
+                record.setFiles(one.getFiles());
+            }
+        }
+        return Result.ok(iPage);
     }
 }

@@ -1,5 +1,6 @@
 import org.junit.Test;
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * @author lichen
@@ -15,5 +16,4 @@ public class MyTest {
     public void t1() throws Exception {
 
     }
-
 }

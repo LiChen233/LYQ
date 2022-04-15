@@ -61,6 +61,14 @@ public class ClazzController {
         return classService.queryPage(clazzQueryFo);
     }
 
+    /**
+     * 分页查询
+     */
+    @PostMapping("/queryPageAndTimetable")
+    public Result queryPageAndTimetable(@RequestBody ClazzQueryFo clazzQueryFo){
+        return classService.queryPageAndTimetable(clazzQueryFo);
+    }
+
 
     /**
      * 插入

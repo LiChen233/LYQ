@@ -1,33 +1,33 @@
 <template>
   <a-upload ref="__aUpload"
-      v-if="isAlive"
-      :action="action"
-      :headers="headers"
-      :data="data"
-      :default-file-list="defaultFileList"
-      @change="handleChange"
-      :remove="handleRemove"
-      :multiple="multiple"
-      :accept="accept">
+            v-if="isAlive"
+            :action="action"
+            :headers="headers"
+            :data="data"
+            :default-file-list="defaultFileList"
+            @change="handleChange"
+            :remove="handleRemove"
+            :multiple="multiple"
+            :accept="accept">
     <slot :loading="fileUploading" :btnText="btnText">
       <a-button :type="btnType"
                 :loading="fileUploading"
                 :disabled="filesIdList.length >= limit">
-        <a-icon type="upload" />
-        <span>{{btnText}}</span>
+        <a-icon type="upload"/>
+        <span>{{ btnText }}</span>
       </a-button>
     </slot>
     <slot name="tip" :tip="tipText">
-      <div>{{tipText}}</div>
+      <div>{{ tipText }}</div>
     </slot>
   </a-upload>
 </template>
 
 <script>
-import { ACCESS_TOKEN } from '@/store/mutation-types'
+import {ACCESS_TOKEN} from '@/store/mutation-types'
 import storage from 'store'
 import {filesApiUrl, filesApiDelFile, filesApiGetListByIds, getDownLoadFileUrl} from "@/api/system/files";
-import { filesTypeEnum } from "@/enums/system/files";
+import {filesTypeEnum} from "@/enums/system/files";
 
 const serverUrl = process.env.VUE_APP_API_BASE_URL
 
@@ -54,9 +54,13 @@ export default {
     limit: {
       type: Number,
       default: 5
+    },
+    xId: {
+      type: String,
+      default: ''
     }
   },
-  data () {
+  data() {
     return {
       isAlive: true,
       defaultFileList: [],
@@ -89,11 +93,11 @@ export default {
   },
   watch: {
     defaultFileIds: {
-      handler (filesIds) {
+      handler(filesIds) {
         if ((filesIds != null
             && (this.$myUtils.str.isNotEmpty(filesIds)
-            || this.$myUtils.coll.isNotEmpty(filesIds)))
-            && this.$myUtils.coll.isEmpty(this.filesIdList)){
+              || this.$myUtils.coll.isNotEmpty(filesIds)))
+          && this.$myUtils.coll.isEmpty(this.filesIdList)) {
           this.getDefaultFileList(filesIds)
         }
       },
@@ -102,13 +106,14 @@ export default {
     filesIdList: function (data) {
       this.$emit("update:filesIds", this.getFilesIds());
       this.$emit("update:filesIdList", data);
+      this.$emit("upload", this.xId, this.getFilesIds());
     }
   },
   created() {
     this.setAccept()
   },
   methods: {
-    setAccept () {
+    setAccept() {
       const fun = (arr) => {
         let s = ""
         for (let i = 0; i < arr.length; i++) {
@@ -130,7 +135,7 @@ export default {
       } else if (type === 'doc') {
         accept = fun(filesTypeEnum.word)
       }
-      if (accept === ""){
+      if (accept === "") {
         accept = fun([filesTypeEnum.image, filesTypeEnum.word, filesTypeEnum.pdf])
       } else {
         let tipText = accept.replace(/,\./g, "/")
@@ -140,27 +145,27 @@ export default {
       }
       this.accept = accept
     },
-    reload () {
+    reload() {
       this.isAlive = false
       this.$nextTick(() => (this.isAlive = true))
     },
-    getDefaultFileList (filesIds) {
+    getDefaultFileList(filesIds) {
       let ids = ""
-      if (filesIds.constructor == String){
+      if (filesIds.constructor == String) {
         ids = filesIds
-      }else{
+      } else {
         ids = filesIds.join()
       }
       filesApiGetListByIds(ids).then(res => {
         const data = res.data
         let list = []
         data.forEach(item => {
-          const { id, filename, suffix } = item
+          const {id, filename, suffix} = item
           let d = {
             uid: id,
             name: filename + suffix,
             status: 'done',
-            response: { msg: '成功', code: 200, data: id },
+            response: {msg: '成功', code: 200, data: id},
             url: this.getDownLoadFileUrl(id)
           }
           list.push(d)
@@ -171,25 +176,25 @@ export default {
         this.reload()
       })
     },
-    getDownLoadFileUrl (filesId) {
+    getDownLoadFileUrl(filesId) {
       return getDownLoadFileUrl(filesId)
     },
-    handleChange({ file, fileList }) {
+    handleChange({file, fileList}) {
       var {status, response} = file
       if (status != "uploading") {
         this.fileUploading = false
         if (status == "done") {
           const code = response.code
-          if (code != 200){
+          if (code != 200) {
             // 文件上传失败
             this.$message.error("文件上传失败")
             fileList.forEach(item => {
-              if (item.uid === file.uid){
+              if (item.uid === file.uid) {
                 item.status = "error"
               }
             })
           }
-        }else if (status == "error") {
+        } else if (status == "error") {
           this.$message.error("文件传输失败，请检查您的网络")
         }
         this.setFilesIdList()
@@ -197,7 +202,7 @@ export default {
         this.fileUploading = true
       }
     },
-    handleRemove (file) {
+    handleRemove(file) {
       const fileId = file.response.data
       if (this.$myUtils.str.isNotEmpty(fileId)) {
         return new Promise((resolve, reject) => {
@@ -208,11 +213,11 @@ export default {
             reject()
           })
         })
-      }else{
+      } else {
         return true
       }
     },
-    setFilesIdList () {
+    setFilesIdList() {
       const list = [...this.$refs["__aUpload"].sFileList, ...this.defaultFileList]
       const filesIdList = []
       list.forEach(item => {
@@ -226,10 +231,10 @@ export default {
       })
       this.filesIdList = filesIdList
     },
-    getFilesIds (s = ",") {
+    getFilesIds(s = ",") {
       return this.filesIdList.join(s)
     },
-    getFilesIdList () {
+    getFilesIdList() {
       return this.filesIdList
     }
   }
