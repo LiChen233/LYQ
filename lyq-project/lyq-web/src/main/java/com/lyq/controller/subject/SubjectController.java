@@ -47,6 +47,14 @@ public class SubjectController {
         return subjectService.queryPage(subjectQueryFo);
     }
 
+    /**
+     * 分页查询-queryPageAndMeans
+     */
+    @PostMapping("/queryPageAndMeans")
+    public Result queryPageAndMeans(@RequestBody SubjectQueryFo subjectQueryFo){
+        return subjectService.queryPageAndMeans(subjectQueryFo);
+    }
+
 
     /**
      * 插入

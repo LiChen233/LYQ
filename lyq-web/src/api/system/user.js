@@ -25,6 +25,7 @@ export const baseUrl = {
   },
   subject: {
     queryPage: 'subject/queryPage',
+    queryPageAndMeans: 'subject/queryPageAndMeans',
     crud: 'subject/',
     list: 'subject/list',
   },
@@ -66,7 +67,8 @@ export const baseUrl = {
     crud: 'timetable/'
   },
   means: {
-    crud: 'means/'
+    crud: 'means/',
+    getAll: 'means/getAll'
   }
 }
 

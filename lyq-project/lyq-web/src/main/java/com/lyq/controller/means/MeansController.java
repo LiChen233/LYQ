@@ -1,9 +1,10 @@
 package com.lyq.controller.means;
 
+import com.lyq.app.entity.means.fo.MeansFo;
 import com.lyq.app.service.means.MeansService;
+import com.lyq.common.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author lichen
@@ -15,4 +16,25 @@ import org.springframework.web.bind.annotation.RestController;
 public class MeansController {
     @Autowired
     private MeansService meansService;
+
+    /**
+     * 获取我的资料
+     */
+    @GetMapping("/")
+    public Result getMy(){
+        return meansService.getMy();
+    }
+
+    @PostMapping("/")
+    public Result addAndUpdate(@RequestBody MeansFo meansFo){
+        return meansService.addAndUpdate(meansFo);
+    }
+
+    /**
+     * 获取所有资料
+     */
+    @GetMapping("/getAll")
+    public Result getAll(){
+        return meansService.getAll();
+    }
 }

@@ -24,5 +24,7 @@ public interface SubjectService extends IService<Subject> {
     Result put(SubjectFo subjectFo);
 
     Result del(String id);
+
+    Result queryPageAndMeans(SubjectQueryFo subjectQueryFo);
 }
 

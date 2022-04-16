@@ -62,6 +62,12 @@ const my = [
     component: () => import('@/views/timetable/TimetableManager'),
     meta: {title: '课表管理'}
   },
+  {
+    path: '/MeansManager',
+    name: 'MeansManager',
+    component: () => import('@/views/means/MeansManager'),
+    meta: {title: '科目资料上传'}
+  },
 ]
 
 const menus = [

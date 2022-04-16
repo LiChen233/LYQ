@@ -18,4 +18,8 @@ public class SubjectVo extends Subject {
      * 创建人名字
      */
     private String updateMan;
+    /**
+     * 文件
+     */
+    private String files;
 }

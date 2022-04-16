@@ -51,7 +51,7 @@ export default {
       queryPage: baseUrl.subject.queryPage,
       crud: baseUrl.subject.crud,
       where: {},
-      page: {model: [{type: 'text', name: 'name', title: '班级名称'}]},
+      page: {model: [{type: 'text', name: 'name', title: '科目名称'}]},
       columns: [
         {
           title: "科目名字",
