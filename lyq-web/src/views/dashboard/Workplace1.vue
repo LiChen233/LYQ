@@ -2,7 +2,7 @@
   <page-header-wrapper>
     <a-card :bordered="false" style="margin-bottom: 20px;">
       <h1>名言名句</h1>
-      <div style="font-weight: bold">{{ juzi[0] }}</div>
+      <div style="font-weight: bold">{{ juzi[index] }}</div>
     </a-card>
     <a-card :bordered="false" style="margin-bottom: 20px;">
       <h1>今日天气</h1>
@@ -10,7 +10,7 @@
         <a-input v-model="city" placeholder="输入城市"></a-input>
         <a-button type="primary" style="margin-left: 20px;" @click="getWeather">查询</a-button>
       </div>
-      <div v-if="weather!=null">
+      <div>
         <div class="weather">
           <div>
             <p>天气：{{ weather.realtime.info }}</p>
@@ -38,7 +38,6 @@
           </div>
         </div>
       </div>
-      <div v-else>查询失败。请稍后再试试吧</div>
     </a-card>
     <a-card :bordered="false">
       <h1>今日作文鉴赏：{{ zuowen[index2].title }}</h1>
