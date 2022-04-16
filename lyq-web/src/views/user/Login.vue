@@ -133,22 +133,6 @@ export default {
           message: '欢迎',
           description: `${timeFix()}，欢迎回来`
         })
-        //通知
-        reqApi({
-          url: baseUrl.notice.getNotice
-        }).then(res => {
-          let icon = <a-icon type="smile" style="color: #52c41a"/>;
-          for (let key in res.data) {
-            let notice = res.data[key]
-            icon.componentOptions.propsData.type = notice.icon
-            this.$notification.open({
-              message: notice.title,
-              icon: icon,
-              description: notice.remark,
-              duration: 0,
-            })
-          }
-        })
       }, 1000)
       this.isLoginError = false
     },

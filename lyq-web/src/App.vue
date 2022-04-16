@@ -9,11 +9,31 @@
 <script>
 import { domTitle, setDocumentTitle } from '@/utils/domUtil'
 import { i18nRender } from '@/locales'
+import reqApi from "@/utils/reqApi";
+import {baseUrl} from "@/api/system/user";
 
 export default {
   data () {
     return {
     }
+  },
+  created() {
+    //通知
+    reqApi({
+      url: baseUrl.notice.getNotice
+    }).then(res => {
+      let icon = <a-icon type="smile" style="color: #52c41a"/>;
+      for (let key in res.data) {
+        let notice = res.data[key]
+        icon.componentOptions.propsData.type = notice.icon
+        this.$notification.open({
+          message: notice.title,
+          icon: icon,
+          description: notice.remark,
+          duration: 0,
+        })
+      }
+    })
   },
   computed: {
     locale () {

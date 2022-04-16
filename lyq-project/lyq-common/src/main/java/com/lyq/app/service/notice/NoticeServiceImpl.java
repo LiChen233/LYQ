@@ -53,15 +53,13 @@ public class NoticeServiceImpl extends ServiceImpl<NoticeDao, Notice> implements
     public List<Notice> getNotice() {
         String clazzIds = LoginUserUtils.getLoginUserInfo().getClazzId();
         List<Notice> list = new ArrayList<>();
-        if (StringUtils.isNotBlank(clazzIds)) {
-            for (String clazzId : clazzIds.split(",")) {
-                LambdaQueryWrapper<Notice> wrapper = new LambdaQueryWrapper<>();
-                wrapper.eq(Notice::getStatus, NoticeStatusEmus.PUSH)
-                        .and(e -> e.like(Notice::getClazzId, clazzId)
-                                .or()
-                                .isNull(Notice::getClazzId));
-                list.addAll(list(wrapper));
-            }
+        for (String clazzId : clazzIds.split(",")) {
+            LambdaQueryWrapper<Notice> wrapper = new LambdaQueryWrapper<>();
+            wrapper.eq(Notice::getStatus, NoticeStatusEmus.PUSH)
+                    .and(e -> e.like(Notice::getClazzId, clazzId)
+                            .or()
+                            .isNull(Notice::getClazzId));
+            list.addAll(list(wrapper));
         }
         return list.stream().distinct().collect(Collectors.toList());
     }
