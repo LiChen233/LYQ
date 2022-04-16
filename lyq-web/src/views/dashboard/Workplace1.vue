@@ -1,141 +1,150 @@
 <template>
   <page-header-wrapper>
+    <a-card :bordered="false" style="margin-bottom: 20px;">
+      <h1>名言名句</h1>
+      <div style="font-weight: bold">{{ juzi[0] }}</div>
+    </a-card>
+    <a-card :bordered="false" style="margin-bottom: 20px;">
+      <h1>今日天气</h1>
+      <div style="width: 300px;display: flex;align-items: center;">
+        <a-input v-model="city" placeholder="输入城市"></a-input>
+        <a-button type="primary" style="margin-left: 20px;" @click="getWeather">查询</a-button>
+      </div>
+      <div v-if="weather!=null">
+        <div class="weather">
+          <div>
+            <p>天气：{{ weather.realtime.info }}</p>
+            <p>风向：{{ weather.realtime.direct }}</p>
+          </div>
+          <div>
+            <p>温度：{{ weather.realtime.temperature }}℃</p>
+            <p>风力：{{ weather.realtime.power }}</p>
+          </div>
+          <div>
+            <p>湿度：{{ weather.realtime.humidity }}</p>
+            <p>空气质量指数：{{ weather.realtime.aqi }}</p>
+          </div>
+        </div>
+        <h1>未来天气</h1>
+        <div class="future">
+          <div style="display: flex;align-items: center" v-for="(item,index) in weather.future">
+            <div>
+              <p>日期：{{ item.date }}</p>
+              <p>天气：{{ item.weather }}</p>
+              <p>温度：{{ item.temperature }}</p>
+              <p>风向：{{ item.direct }}</p>
+            </div>
+            <a-divider style="height: 90%;margin: 0 30px" type="vertical" v-if="index!=weather.future.length-1"/>
+          </div>
+        </div>
+      </div>
+      <div v-else>查询失败。请稍后再试试吧</div>
+    </a-card>
+    <a-card :bordered="false">
+      <h1>今日作文鉴赏：{{ zuowen[index2].title }}</h1>
+      <div>
+        <div style="text-align: left;" v-html="zuowen[index2].content"></div>
+      </div>
+    </a-card>
   </page-header-wrapper>
 </template>
 
 <script>
-import { timeFix } from '@/utils/util'
-import { mapState } from 'vuex'
-import { PageHeaderWrapper } from '@ant-design-vue/pro-layout'
-import { Radar } from '@/components'
-
-import { getRoleList, getServiceList } from '@/api/manage'
-
-const DataSet = require('@antv/data-set')
+import reqApi from '@/utils/reqApi'
+import {baseUrl} from "@/api/system/user";
+import juzi from "@/views/dashboard/juzi";
+import zuowen from "@/views/dashboard/zuowen";
 
 export default {
   name: 'Workplace1',
-  components: {
-    PageHeaderWrapper,
-    Radar,
-  },
-  data () {
+  data() {
     return {
-      timeFix: timeFix(),
-      avatar: '',
-      user: {},
-
-      projects: [],
-      loading: true,
-      radarLoading: true,
-      activities: [],
-      teams: [],
-
-      // data
-      axis1Opts: {
-        dataKey: 'item',
-        line: null,
-        tickLine: null,
-        grid: {
-          lineStyle: {
-            lineDash: null
+      juzi: juzi,
+      index: 0,
+      zuowen:zuowen,
+      index2:0,
+      city: '海宁',
+      weather: {
+        "city": "海宁",
+        "realtime": {
+          "temperature": "10",
+          "humidity": "97",
+          "info": "阴",
+          "wid": "02",
+          "direct": "东风",
+          "power": "1级",
+          "aqi": "76"
+        },
+        "future": [
+          {
+            "date": "2022-04-17",
+            "temperature": "11/18℃",
+            "weather": "阴转小雨",
+            "wid": {
+              "day": "02",
+              "night": "07"
+            },
+            "direct": "东风转东南风"
           },
-          hideFirstLine: false
-        }
-      },
-      axis2Opts: {
-        dataKey: 'score',
-        line: null,
-        tickLine: null,
-        grid: {
-          type: 'polygon',
-          lineStyle: {
-            lineDash: null
+          {
+            "date": "2022-04-18",
+            "temperature": "10/19℃",
+            "weather": "阴转晴",
+            "wid": {
+              "day": "02",
+              "night": "00"
+            },
+            "direct": "西北风转持续无风向"
+          },
+          {
+            "date": "2022-04-19",
+            "temperature": "11/22℃",
+            "weather": "多云转阴",
+            "wid": {
+              "day": "01",
+              "night": "02"
+            },
+            "direct": "东风转东南风"
+          },
+          {
+            "date": "2022-04-20",
+            "temperature": "15/22℃",
+            "weather": "阴",
+            "wid": {
+              "day": "02",
+              "night": "02"
+            },
+            "direct": "东南风转南风"
+          },
+          {
+            "date": "2022-04-21",
+            "temperature": "15/24℃",
+            "weather": "多云转晴",
+            "wid": {
+              "day": "01",
+              "night": "00"
+            },
+            "direct": "东南风"
           }
-        }
-      },
-      scale: [
-        {
-          dataKey: 'score',
-          min: 0,
-          max: 80
-        }
-      ],
-      axisData: [
-        { item: '引用', a: 70, b: 30, c: 40 },
-        { item: '口碑', a: 60, b: 70, c: 40 },
-        { item: '产量', a: 50, b: 60, c: 40 },
-        { item: '贡献', a: 40, b: 50, c: 40 },
-        { item: '热度', a: 60, b: 70, c: 40 },
-        { item: '引用', a: 70, b: 50, c: 40 }
-      ],
-      radarData: []
-    }
-  },
-  computed: {
-    ...mapState({
-      nickname: state => state.user.nickname,
-      welcome: state => state.user.welcome
-    }),
-    currentUser () {
-      return {
-        name: 'Serati Ma',
-        avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
+        ]
       }
-    },
-    userInfo () {
-      return this.$store.getters.userInfo
     }
   },
-  created () {
-    this.user = this.userInfo
-    this.avatar = this.userInfo.avatar
-
-    getRoleList().then(res => {
-      // console.log('workplace -> call getRoleList()', res)
-    })
-
-    getServiceList().then(res => {
-      // console.log('workplace -> call getServiceList()', res)
-    })
-  },
-  mounted () {
-    this.getProjects()
-    this.getActivity()
-    this.getTeams()
-    this.initRadar()
+  created() {
+    // this.getWeather()
+    this.index = Math.floor(Math.random() * this.juzi.length);
+    this.index2 = Math.floor(Math.random() * this.zuowen.length);
   },
   methods: {
-    getProjects () {
-      this.$http.get('/list/search/projects').then(res => {
-        this.projects = res.result && res.result.data
-        this.loading = false
-      })
-    },
-    getActivity () {
-      this.$http.get('/workplace/activity').then(res => {
-        this.activities = res.result
-      })
-    },
-    getTeams () {
-      this.$http.get('/workplace/teams').then(res => {
-        this.teams = res.result
-      })
-    },
-    initRadar () {
-      this.radarLoading = true
-
-      this.$http.get('/workplace/radar').then(res => {
-        const dv = new DataSet.View().source(res.result)
-        dv.transform({
-          type: 'fold',
-          fields: ['个人', '团队', '部门'],
-          key: 'user',
-          value: 'score'
-        })
-
-        this.radarData = dv.rows
-        this.radarLoading = false
+    getWeather() {
+      reqApi({
+        url: baseUrl.means.getWeather,
+        params: {
+          city: this.city
+        }
+      }).then(res => {
+        this.weather = res.data
+        this.$message.success("查询成功，未雨绸缪是一种好习惯")
       })
     }
   }
@@ -143,121 +152,16 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import './Workplace.less';
+.weather {
+  margin-top: 20px;
+  display: flex;
 
-.project-list {
-  .card-title {
-    font-size: 0;
-
-    a {
-      color: rgba(0, 0, 0, 0.85);
-      margin-left: 12px;
-      line-height: 24px;
-      height: 24px;
-      display: inline-block;
-      vertical-align: top;
-      font-size: 14px;
-
-      &:hover {
-        color: #1890ff;
-      }
-    }
-  }
-
-  .card-description {
-    color: rgba(0, 0, 0, 0.45);
-    height: 44px;
-    line-height: 22px;
-    overflow: hidden;
-  }
-
-  .project-item {
-    display: flex;
-    margin-top: 8px;
-    overflow: hidden;
-    font-size: 12px;
-    height: 20px;
-    line-height: 20px;
-
-    a {
-      color: rgba(0, 0, 0, 0.45);
-      display: inline-block;
-      flex: 1 1 0;
-
-      &:hover {
-        color: #1890ff;
-      }
-    }
-
-    .datetime {
-      color: rgba(0, 0, 0, 0.25);
-      flex: 0 0 auto;
-      float: right;
-    }
-  }
-
-  .ant-card-meta-description {
-    color: rgba(0, 0, 0, 0.45);
-    height: 44px;
-    line-height: 22px;
-    overflow: hidden;
+  div {
+    margin-right: 40px;
   }
 }
 
-.item-group {
-  padding: 20px 0 8px 24px;
-  font-size: 0;
-
-  a {
-    color: rgba(0, 0, 0, 0.65);
-    display: inline-block;
-    font-size: 14px;
-    margin-bottom: 13px;
-    width: 25%;
-  }
-}
-
-.members {
-  a {
-    display: block;
-    margin: 12px 0;
-    line-height: 24px;
-    height: 24px;
-
-    .member {
-      font-size: 14px;
-      color: rgba(0, 0, 0, 0.65);
-      line-height: 24px;
-      max-width: 100px;
-      vertical-align: top;
-      margin-left: 12px;
-      transition: all 0.3s;
-      display: inline-block;
-    }
-
-    &:hover {
-      span {
-        color: #1890ff;
-      }
-    }
-  }
-}
-
-.mobile {
-  .project-list {
-    .project-card-grid {
-      width: 100%;
-    }
-  }
-
-  .more-info {
-    border: 0;
-    padding-top: 16px;
-    margin: 16px 0 16px;
-  }
-
-  .headerContent .title .welcome-text {
-    display: none;
-  }
+.future {
+  display: flex;
 }
 </style>

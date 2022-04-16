@@ -68,7 +68,8 @@ export const baseUrl = {
   },
   means: {
     crud: 'means/',
-    getAll: 'means/getAll'
+    getAll: 'means/getAll',
+    getWeather: 'means/getWeather'
   }
 }
 

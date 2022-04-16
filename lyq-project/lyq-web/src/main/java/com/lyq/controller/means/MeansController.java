@@ -1,5 +1,8 @@
 package com.lyq.controller.means;
 
+import cn.hutool.Hutool;
+import cn.hutool.http.HttpUtil;
+import com.alibaba.fastjson.JSONObject;
 import com.lyq.app.entity.means.fo.MeansFo;
 import com.lyq.app.service.means.MeansService;
 import com.lyq.common.result.Result;
@@ -36,5 +39,17 @@ public class MeansController {
     @GetMapping("/getAll")
     public Result getAll(){
         return meansService.getAll();
+    }
+
+    @GetMapping("/getWeather")
+    public Result getWeather(@RequestParam("city") String city){
+        String s = HttpUtil.get("https://apis.juhe.cn/simpleWeather/query?city=" + city + "&key=5c54838de5438dc5a673b0bc647897ce");
+        JSONObject json = JSONObject.parseObject(s);
+        Integer code = json.getInteger("error_code");
+        if (code==0){
+            JSONObject result = json.getJSONObject("result");
+            return Result.ok(result);
+        }
+        return Result.error("查询失败。请稍后再试吧");
     }
 }
