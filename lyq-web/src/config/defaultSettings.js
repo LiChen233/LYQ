@@ -23,7 +23,7 @@ export default {
   menu: {
     locale: true
   },
-  title: '在线作业平台',
+  title: '小学生在线作业平台',
   pwa: false,
   iconfontUrl: '',
   appLanguage: 'zh-CN',
