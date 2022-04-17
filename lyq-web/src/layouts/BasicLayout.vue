@@ -20,7 +20,7 @@
           <span style="color: white;
             font-size: 17px;
             font-weight: bold;
-            margin: 30px;">{{ title }}</span>
+            margin: 10px;">{{ title }}</span>
       </div>
     </template>
     <!-- 1.0.0+ 版本 pro-layout 提供 API,
