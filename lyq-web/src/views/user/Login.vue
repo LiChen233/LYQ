@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <div class="title">
-      在线作业平台
+      小学生在线作业平台
     </div>
     <a-alert v-if="isLoginError" style="margin-bottom: 5px" :message="errorMessage" type="error" show-icon closable/>
     <a-form
