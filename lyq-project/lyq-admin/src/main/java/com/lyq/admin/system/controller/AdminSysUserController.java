@@ -105,7 +105,7 @@ public class AdminSysUserController {
      * @param sysUserPageQueryFo
      * @return
      */
-    @ReqApi(value = "用户管理分页查询", permission = "sys:user:queryPage")
+//    @ReqApi(value = "用户管理分页查询", permission = "sys:user:queryPage")
     @PostMapping("/queryPage")
     public Result queryPage(@RequestBody SysUserQueryFo sysUserPageQueryFo){
         Page<SysUserVo> page = sysUserService.queryPage(sysUserPageQueryFo);

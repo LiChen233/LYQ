@@ -30,7 +30,7 @@ import {edit, baseUrl, add as userApiAdd, edit as userApiEdit} from "@/api/syste
 import reqApi from "@/utils/reqApi";
 
 export default {
-  name: "SubjectManager",
+  name: "settings",
   data() {
     return {
       labelCol: {span: 4},

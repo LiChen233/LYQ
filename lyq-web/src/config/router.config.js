@@ -185,7 +185,14 @@ export const asyncRouterMap = [
             meta: {title: 'menu.account.settings', hideHeader: true, permission: ['user']},
             redirect: '/account/settings/basic',
             hideChildrenInMenu: true,
-            children: []
+            children: [
+              {
+                path: '/account/settings/basic',
+                name: 'BasicSettings',
+                component: () => import('@/views/account/settings/BasicSetting'),
+                meta: {title: 'account.settings.menuMap.basic', hidden: true, permission: ['user']}
+              }
+            ]
           }
         ]
       },
