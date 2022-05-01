@@ -16,7 +16,6 @@
         LEFT JOIN clazz c ON c.id = w.clazz_id
         LEFT JOIN sys_user u ON u.id = w.teacher_id
         <where>
-            and u.deleted = 0
             <if test="param.userId!=null and param.userId!=''">
                 AND w.teacher_id = #{param.userId}
             </if>
@@ -37,8 +36,11 @@
             u.phone
         FROM
             sys_user u
+        LEFT JOIN sys_user_role r ON u.id = r.sys_user_id
         <where>
-            u.clazz_id = #{param.clazzId}
+            and u.deleted = 0
+            AND r.sys_role_id != '2'
+            and u.clazz_id = #{param.clazzId}
             <if test="param.username!=null and param.username!=''">
                 AND u.username = #{param.username}
             </if>

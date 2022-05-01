@@ -37,6 +37,7 @@
         FROM
             sys_user u
         <where>
+            and u.deleted = 0
             u.clazz_id = #{param.clazzId}
             <if test="param.username!=null and param.username!=''">
                 AND u.username = #{param.username}
