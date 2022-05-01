@@ -102,8 +102,9 @@ export default {
     };
   },
   created() {
+    console.log(this.$store.getters.userInfo)
     let clazz = this.$store.getters.userInfo.clazzId
-    if (clazz != null || clazz !== '' || clazz.length === 0) {
+    if (clazz === null || clazz === '' || clazz.length === 0) {
       this.show = false
       this.$message.info('你还未被分配班级，请联系管理员进行分配')
     }
