@@ -79,6 +79,13 @@ export default {
           userId: this.userId
         }
       }).then(res => {
+        let arr = res.data
+        for(let key in arr){
+          let t = arr[key]
+          if (t.type==='E' && t.myCheck===null){
+            t.myCheck = []
+          }
+        }
         this.topicList = res.data
       })
     },
