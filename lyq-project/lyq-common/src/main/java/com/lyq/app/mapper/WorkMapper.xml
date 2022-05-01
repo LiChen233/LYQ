@@ -16,6 +16,7 @@
         LEFT JOIN clazz c ON c.id = w.clazz_id
         LEFT JOIN sys_user u ON u.id = w.teacher_id
         <where>
+            and u.deleted = 0
             <if test="param.userId!=null and param.userId!=''">
                 AND w.teacher_id = #{param.userId}
             </if>
