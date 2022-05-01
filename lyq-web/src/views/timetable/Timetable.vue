@@ -51,7 +51,11 @@ export default {
         url: this.crud,
         method: 'get'
       }).then(res => {
-        this.src = getPreviewFileUrl(res.data)
+        if (res.data===null){
+          this.$message.info('暂时没有课表哦，请联系老师上传')
+        }else {
+          this.src = getPreviewFileUrl(res.data)
+        }
       })
     },
     getMeans() {
@@ -59,7 +63,6 @@ export default {
         url: baseUrl.means.getAll,
         method: 'get'
       }).then(res => {
-        console.log(res.data)
         this.means = res.data
       })
     },

@@ -33,7 +33,7 @@ public class TimetableController {
             Timetable timetable = timetableService.getOne(wrapper);
             return Result.ok(timetable.getFiles());
         }else {
-            return Result.error("暂时没有课表哦，请联系老师上传");
+            return Result.ok(null);
         }
     }
 
