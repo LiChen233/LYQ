@@ -1,6 +1,6 @@
 <template>
   <page-header-wrapper>
-    <a-card :bordered="false">
+    <a-card :bordered="false" v-show="show">
       <my-search :page="page" @search="search"></my-search>
       <my-page-table ref="myPageTable" :req-url="queryPage" :where="where">
         <template slot-scope="{ list }">
@@ -35,6 +35,10 @@
         </template>
       </my-page-table>
     </a-card>
+    <a-card :bordered="false" v-show="!show">
+      <h1>你好</h1>
+      <h2>你还未被分配班级，请联系管理员进行分配</h2>
+    </a-card>
   </page-header-wrapper>
 </template>
 
@@ -58,6 +62,7 @@ export default {
       queryPage: baseUrl.work.myWork,
       crud: baseUrl.work.crud,
       where: {},
+      show: true,
       page: {
         model: [{type: 'date2', name: 'time', title: '时间'}]
       },
@@ -95,6 +100,13 @@ export default {
       ],
       student: {}
     };
+  },
+  created() {
+    let clazz = this.$store.getters.userInfo.clazzId
+    if (clazz != null || clazz !== '' || clazz.length === 0) {
+      this.show = false
+      this.$message.info('你还未被分配班级，请联系管理员进行分配')
+    }
   },
   mounted() {
     this.getClazzList()
